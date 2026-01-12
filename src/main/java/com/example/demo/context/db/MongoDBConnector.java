@@ -11,7 +11,7 @@ public class MongoDBConnector {
 
     private MongoDBConnector() {
         this.mongoClient = MongoClients.create("mongodb+srv://dwes:IHgiOEisnKh6QKF1@clusterdwes.bjtt9c9.mongodb.net/?appName=ClusterDWES");
-        this.database = mongoClient.getDatabase("entrenamientos");
+        this.database = mongoClient.getDatabase("todolist");
     }
 
     public static MongoDatabase getDataBase() {
