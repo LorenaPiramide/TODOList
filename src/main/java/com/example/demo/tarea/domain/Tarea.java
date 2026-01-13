@@ -14,18 +14,18 @@ public class Tarea {
     private LocalDateTime fechaCreacion;
     private LocalDateTime fechaFinalizacion;
     private boolean estaCompletada;
-    private Usuario creador;
+    private Usuario propietario;
     //private Usuario asignador; Creo que no hace falta. El creador es el único que puede asignar usuarios a la tarea.
     private List<Usuario> usuariosAsignados;
 
-    public Tarea(int id, String texto, Prioridad prioridad, LocalDateTime fechaCreacion, LocalDateTime fechaFinalizacion, boolean estaCompletada, Usuario creador) {
+    public Tarea(int id, String texto, Prioridad prioridad, LocalDateTime fechaCreacion, LocalDateTime fechaFinalizacion, boolean estaCompletada, Usuario propietario) {
         this.id = id;
         this.texto = texto;
         this.prioridad = prioridad;
         this.fechaCreacion = fechaCreacion;
         this.fechaFinalizacion = fechaFinalizacion;
         this.estaCompletada = estaCompletada;
-        this.creador = creador;
+        this.propietario = propietario;
         this.usuariosAsignados = new ArrayList<>();
     }
 
@@ -77,12 +77,12 @@ public class Tarea {
         this.estaCompletada = estaCompletada;
     }
 
-    public Usuario getCreador() {
-        return creador;
+    public Usuario getPropietario() {
+        return propietario;
     }
 
-    public void setCreador(Usuario creador) {
-        this.creador = creador;
+    public void setPropietario(Usuario propietario) {
+        this.propietario = propietario;
     }
 
     public List<Usuario> getUsuariosAsignados() {
