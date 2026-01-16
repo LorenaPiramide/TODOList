@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tarea {
-    private int id;
+    private String id; // los ids en Mongo son Strings, no ints
     private String texto;
     private Prioridad prioridad;
     private LocalDateTime fechaCreacion;
@@ -18,7 +18,7 @@ public class Tarea {
     //private Usuario asignador; Creo que no hace falta. El creador es el único que puede asignar usuarios a la tarea.
     private List<Usuario> usuariosAsignados;
 
-    public Tarea(int id, String texto, Prioridad prioridad, LocalDateTime fechaCreacion, LocalDateTime fechaFinalizacion, boolean estaCompletada, Usuario propietario) {
+    public Tarea(String id, String texto, Prioridad prioridad, LocalDateTime fechaCreacion, LocalDateTime fechaFinalizacion, boolean estaCompletada, Usuario propietario) {
         this.id = id;
         this.texto = texto;
         this.prioridad = prioridad;
@@ -29,11 +29,11 @@ public class Tarea {
         this.usuariosAsignados = new ArrayList<>();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

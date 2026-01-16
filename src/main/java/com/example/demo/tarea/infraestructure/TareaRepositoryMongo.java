@@ -5,6 +5,8 @@ import com.example.demo.tarea.domain.Tarea;
 import com.example.demo.tarea.domain.TareaRepository;
 import com.example.demo.usuario.domain.Usuario;
 import com.mongodb.client.result.InsertManyResult;
+import com.mongodb.client.result.InsertOneResult;
+import org.bson.BsonObjectId;
 import org.bson.Document;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class TareaRepositoryMongo implements TareaRepository {
     }
 
     @Override
-    public void crearTarea(Tarea tarea, Usuario usuario) {
+    public Tarea crearTarea(Tarea tarea, Usuario usuario) {
         Document document = new Document();
         document.append("texto", tarea.getTexto());
         document.append("prioridad", tarea.getPrioridad());
@@ -28,7 +30,12 @@ public class TareaRepositoryMongo implements TareaRepository {
         document.append("estaCompletada", tarea.isEstaCompletada());
         document.append("propietario", tarea.getPropietario());
         document.append("usuariosAsignados", tarea.getUsuariosAsignados());
-        InsertManyResult result = MongoDBConnector.getDataBase().getCollection(collectionName).insertMany(document);
+        InsertOneResult result = MongoDBConnector.getDataBase().getCollection(collectionName).insertOne(document);
+        return new Tarea(
+                ((BsonObjectId)(result.getInsertedId())).getValue().toString(), 
+                tarea.getTexto(), tarea.getPrioridad(), tarea.getFechaCreacion(), tarea.getFechaFinalizacion(),
+                tarea.isEstaCompletada(), tarea.getPropietario()
+        );
     }
 
     @Override
