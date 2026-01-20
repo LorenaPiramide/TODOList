@@ -1,6 +1,5 @@
 package com.example.demo.usuario.infraestructure.rest;
 
-import com.example.demo.JwtApplication;
 import com.example.demo.context.security.JwtService;
 import com.example.demo.usuario.application.UsuarioUseCases;
 import com.example.demo.usuario.domain.Usuario;

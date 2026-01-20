@@ -11,27 +11,23 @@ public class MongoDBConnector {
     private static MongoDBConnector mongoDBConnector;
     private static MongoClient mongoClient;
     private static MongoDatabase database;
-    private static String url;
-    private static String databasename;
+    private String url;
+    private String databasename;
 
-    @Value("${spring.datasource.url}")
-    public void setMongoClient(String url) {
-        MongoDBConnector.url = url;
-    }
 
-    @Value("${spring.datasource.database}")
-    public void setDatabase(String databasename) {
-        MongoDBConnector.databasename = databasename;
-    }
-
-    private MongoDBConnector() {
-        this.mongoClient = MongoClients.create(MongoDBConnector.url);
-        this.database = mongoClient.getDatabase(MongoDBConnector.databasename);
+    private MongoDBConnector(
+            @Value("${spring.datasource.url}") String url,
+            @Value("${spring.datasource.database}") String databasename
+    ) {
+        this.url = url;
+        this.databasename = databasename;
+        this.mongoClient = MongoClients.create(url);
+        this.database = mongoClient.getDatabase(databasename);
     }
 
     public static MongoDatabase getDataBase() {
         if (mongoDBConnector == null) {
-            mongoDBConnector = new MongoDBConnector();
+            mongoDBConnector = new MongoDBConnector(mongoDBConnector.url, mongoDBConnector.databasename);
         }
         return mongoDBConnector.database;
     }

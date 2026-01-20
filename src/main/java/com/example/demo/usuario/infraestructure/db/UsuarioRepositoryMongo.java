@@ -3,7 +3,6 @@ package com.example.demo.usuario.infraestructure.db;
 import com.example.demo.context.db.MongoDBConnector;
 import com.example.demo.usuario.domain.Usuario;
 import com.example.demo.usuario.domain.UsuarioRepository;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.result.InsertOneResult;
 import org.bson.Document;
@@ -20,18 +19,18 @@ public class UsuarioRepositoryMongo implements UsuarioRepository {
         document.append("creadas", usuario.getCreadas());
         document.append("asignadas", usuario.getAsignadas());
         InsertOneResult result = MongoDBConnector.getDataBase().getCollection(collectionName).insertOne(document);
-        return new Usuario(usuario.getEmail(), usuario.getPassword()); // fixme
+        return result.wasAcknowledged(); //Esto devuelve un true o un false si Mongo a recibido y confirmado la petición o no
     }
 
     @Override
     public Usuario loginUsuario(Usuario usuario) {
         MongoCollection<Document> collection = MongoDBConnector.getDataBase().getCollection(collectionName);
-        // todo, ¿funciona?
-        FindIterable<Document> iterable = collection.find();
-        for (Document document : iterable) {
-            return new Usuario(document.getString("nombre"), document.getString("password"));
+        Document query = new Document().append("email", usuario.getEmail()).append("password", usuario.getPassword());
+        Document document = collection.find(query).first();
+        if (document == null) {
+            return null;
         }
-        return null;
+        return new Usuario(document.getString("email"), document.getString("password"));
     }
 
     // todo, creo que no hay que listar los usuarios

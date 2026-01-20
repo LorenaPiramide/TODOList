@@ -2,11 +2,13 @@ package com.example.demo.context.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
+@Component
 public class JwtService {
     private static final long EXPIRATION = 1000 * 60 * 60; // 1h
     private static final String SECRET = "super-secret-key-jwt-cpifp-piramide-2025";

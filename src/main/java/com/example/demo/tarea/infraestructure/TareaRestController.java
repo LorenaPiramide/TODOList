@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TareaRestController {
     private TareaUseCases tareaUseCases;
 
-    public TareaRestController(TareaUseCases tareaUseCases) {
+    public TareaRestController() {
         this.tareaUseCases = new TareaUseCases(new TareaRepositoryMongo());
     }
 }
