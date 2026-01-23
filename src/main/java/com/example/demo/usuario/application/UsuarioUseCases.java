@@ -17,6 +17,10 @@ public class UsuarioUseCases {
 //        return this.usuarioRepository.listarUsuarios();
 //    }
 
+    public void reset() {
+        this.usuarioRepository.reset();
+    }
+
     public boolean registrarUsuario(Usuario usuario) {
         String password = Hashing.sha256().hashString(usuario.getPassword(), StandardCharsets.UTF_8).toString();
         // Ciframos al usuario para que no se muestre la contraseña

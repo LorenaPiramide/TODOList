@@ -11,8 +11,8 @@ public class MongoDBConnector {
     private static MongoDBConnector mongoDBConnector;
     private static MongoClient mongoClient;
     private static MongoDatabase database;
-    private String url;
-    private String databasename;
+    private static String url;
+    private static String databasename;
 
 
     private MongoDBConnector(
@@ -27,7 +27,7 @@ public class MongoDBConnector {
 
     public static MongoDatabase getDataBase() {
         if (mongoDBConnector == null) {
-            mongoDBConnector = new MongoDBConnector(mongoDBConnector.url, mongoDBConnector.databasename);
+            mongoDBConnector = new MongoDBConnector(url, databasename);
         }
         return mongoDBConnector.database;
     }

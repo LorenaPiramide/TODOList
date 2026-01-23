@@ -12,6 +12,11 @@ public class UsuarioRepositoryMongo implements UsuarioRepository {
     private final String collectionName = "usuarios";
 
     @Override
+    public void reset() {
+        MongoDBConnector.getDataBase().getCollection(collectionName).drop();
+    }
+
+    @Override
     public boolean registrarUsuario(Usuario usuario) {
         Document document = new Document();
         document.append("email", usuario.getEmail());
