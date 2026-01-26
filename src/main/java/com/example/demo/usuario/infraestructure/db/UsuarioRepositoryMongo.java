@@ -3,9 +3,12 @@ package com.example.demo.usuario.infraestructure.db;
 import com.example.demo.context.db.MongoDBConnector;
 import com.example.demo.usuario.domain.Usuario;
 import com.example.demo.usuario.domain.UsuarioRepository;
+import com.google.common.hash.Hashing;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.result.InsertOneResult;
 import org.bson.Document;
+
+import java.nio.charset.StandardCharsets;
 
 public class UsuarioRepositoryMongo implements UsuarioRepository {
 
@@ -30,7 +33,8 @@ public class UsuarioRepositoryMongo implements UsuarioRepository {
     @Override
     public Usuario loginUsuario(Usuario usuario) {
         MongoCollection<Document> collection = MongoDBConnector.getDataBase().getCollection(collectionName);
-        Document query = new Document().append("email", usuario.getEmail()).append("password", usuario.getPassword());
+        String password = Hashing.sha256().hashString(usuario.getPassword(), StandardCharsets.UTF_8).toString();
+        Document query = new Document().append("email", usuario.getEmail()).append("password", password);
         Document document = collection.find(query).first();
         if (document == null) {
             return null;

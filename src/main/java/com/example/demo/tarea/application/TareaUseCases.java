@@ -36,4 +36,5 @@ public class TareaUseCases {
     public boolean editarDatos(Tarea tarea) {
         return this.tareaRepository.editarDatos(tarea);
     }
+
 }

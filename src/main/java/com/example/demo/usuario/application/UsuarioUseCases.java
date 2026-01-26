@@ -13,10 +13,6 @@ public class UsuarioUseCases {
         this.usuarioRepository = usuarioRepository;
     }
 
-//    public List<Usuario> listar() {
-//        return this.usuarioRepository.listarUsuarios();
-//    }
-
     public void reset() {
         this.usuarioRepository.reset();
     }

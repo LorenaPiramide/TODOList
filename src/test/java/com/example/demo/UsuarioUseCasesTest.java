@@ -37,6 +37,19 @@ public class UsuarioUseCasesTest {
         assertNull(resultado, "El test debe fallar por la contraseña.");
     }
 
+    @Test
+    void registrarUsuarioTest() {
+        Usuario usuario = new Usuario("nuevo@test", "pass123");
+
+        boolean registrado = this.usuarioUseCases.registrarUsuario(usuario);
+        assertTrue(registrado, "El usuario debe registrarse correctamente");
+
+        Usuario login = this.usuarioUseCases.loginUsuario(new Usuario("nuevo@test", "pass123"));
+        assertNotNull(login, "El usuario registrado debe poder hacer login");
+        assertEquals("nuevo@test", login.getEmail(), "El email del usuario debe coincidir");
+    }
+
+
     @AfterEach
     void reset() {
         this.usuarioUseCases.reset();

@@ -4,10 +4,7 @@ import com.example.demo.context.security.JwtService;
 import com.example.demo.usuario.application.UsuarioUseCases;
 import com.example.demo.usuario.domain.Usuario;
 import com.example.demo.usuario.infraestructure.db.UsuarioRepositoryMongo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -21,17 +18,17 @@ public class AuthRestController {
         this.usuarioUseCases = new UsuarioUseCases(new UsuarioRepositoryMongo());
     }
 
-    @PostMapping("/api/usuarios/registro")
+    @PostMapping("/registro")
     public String registro(@RequestBody Usuario usuario) {
         boolean esCorrecto = this.usuarioUseCases.registrarUsuario(usuario);
         if (esCorrecto) {
             return "Registro correcto.";
         } else {
-            return "Registro incorrecto";
+            return "Registro incorrecto.";
         }
     }
 
-    @PostMapping("/api/usuarios/login")
+    @PostMapping("/login")
     public String login(@RequestBody Usuario usuario) {
         Usuario login = this.usuarioUseCases.loginUsuario(usuario);
         if (login != null) {
