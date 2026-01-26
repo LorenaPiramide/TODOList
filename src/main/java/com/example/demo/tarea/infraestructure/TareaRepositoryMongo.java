@@ -61,13 +61,12 @@ public class TareaRepositoryMongo implements TareaRepository {
                         doc.getObjectId("_id").toString(),
                         doc.getString("texto"),
                         Prioridad.valueOf(doc.getString("prioridad")),
-                        doc.getDate("fechaCreacion"),        // Date directo
-                        doc.getDate("fechaFinalizacion"),    // Date directo
+                        doc.getDate("fechaCreacion"),
+                        doc.getDate("fechaFinalizacion"),
                         doc.getBoolean("estaCompletada"),
                         new Usuario(propietarioEmail, "")
                 );
 
-                // Asignados
                 List<Usuario> usuariosAsignados = new ArrayList<>();
                 if (asignados != null) {
                     for (String email : asignados) {
@@ -118,7 +117,6 @@ public class TareaRepositoryMongo implements TareaRepository {
     public boolean editarDatos(Tarea tarea) {
         MongoCollection<Document> collection = MongoDBConnector.getDataBase().getCollection(collectionName);
 
-        // Guardamos Date directamente
         Document nuevosDatos = new Document()
                 .append("texto", tarea.getTexto())
                 .append("prioridad", tarea.getPrioridad().name())
