@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -33,7 +34,7 @@ class TareaUseCasesTest {
         tareaUseCases.reset();
 
         Usuario usuario = new Usuario("test@test", "pass");
-        Tarea tarea = new Tarea(null, "Prueba", Prioridad.MEDIA, LocalDateTime.now(), null, false, usuario);
+        Tarea tarea = new Tarea(null, "Prueba", Prioridad.MEDIA, new Date(), null, false, usuario);
 
         tareaUseCases.crearTarea(tarea, usuario);
 
@@ -51,8 +52,8 @@ class TareaUseCasesTest {
         Usuario usuario1 = new Usuario("user1@test", "pass1");
         Usuario usuario2 = new Usuario("user2@test", "pass2");
 
-        Tarea tarea1 = new Tarea(null, "Tarea 1", Prioridad.ALTA, LocalDateTime.now(), null, false, usuario1);
-        Tarea tarea2 = new Tarea(null, "Tarea 2", Prioridad.BAJA, LocalDateTime.now(), null, false, usuario2);
+        Tarea tarea1 = new Tarea(null, "Tarea 1", Prioridad.ALTA, new Date(), null, false, usuario1);
+        Tarea tarea2 = new Tarea(null, "Tarea 2", Prioridad.BAJA, new Date(), null, false, usuario2);
 
         tareaUseCases.crearTarea(tarea1, usuario1);
         tareaUseCases.crearTarea(tarea2, usuario2);
@@ -85,7 +86,7 @@ class TareaUseCasesTest {
         Usuario propietario = new Usuario("usuario@test", "pass1");
         Usuario asignado = new Usuario("prueba@test", "pass2");
 
-        Tarea tarea = new Tarea(null, "Tarea", Prioridad.MEDIA, LocalDateTime.now(), null, false, propietario);
+        Tarea tarea = new Tarea(null, "Tarea", Prioridad.MEDIA, new Date(), null, false, propietario);
         tareaUseCases.crearTarea(tarea, propietario);
 
         tareaUseCases.asignarTarea(tarea, propietario, asignado);
@@ -98,7 +99,7 @@ class TareaUseCasesTest {
     @Test
     void asignarEstado() {
         Usuario usuario = new Usuario("test@test", "pass");
-        Tarea tarea = new Tarea(null, "Tarea", Prioridad.BAJA, LocalDateTime.now(), null, false, usuario);
+        Tarea tarea = new Tarea(null, "Tarea", Prioridad.BAJA, new Date(), null, false, usuario);
         tareaUseCases.crearTarea(tarea, usuario);
 
         tarea.setEstaCompletada(true);
@@ -113,7 +114,7 @@ class TareaUseCasesTest {
     @Test
     void editarDatos() {
         Usuario usuario = new Usuario("user@test", "pass");
-        Tarea tarea = new Tarea(null, "Texto original", Prioridad.BAJA, LocalDateTime.now(), null, false, usuario);
+        Tarea tarea = new Tarea(null, "Texto original", Prioridad.BAJA, new Date(), null, false, usuario);
         tareaUseCases.crearTarea(tarea, usuario);
 
         tarea.setTexto("Texto editado");
