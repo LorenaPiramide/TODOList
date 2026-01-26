@@ -37,7 +37,7 @@ public class AuthRestController {
         if (login != null) {
             return jwtService.generateToken(login.getEmail());
         } else {
-            return "Usuario o contraseña incorrectos.";
+            return "Usuario y/o contraseña incorrectos.";
         }
     }
 

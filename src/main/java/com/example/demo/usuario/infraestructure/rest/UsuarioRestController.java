@@ -1,28 +1,46 @@
 package com.example.demo.usuario.infraestructure.rest;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.demo.context.security.JwtService;
+import com.example.demo.usuario.application.UsuarioUseCases;
+import com.example.demo.usuario.domain.Usuario;
+import com.example.demo.usuario.infraestructure.db.UsuarioRepositoryMongo;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/usuarios")
 public class UsuarioRestController {
 
-//    private UsuarioUseCases usuarioUseCases;
-//
-//    public UsuarioRestController(UsuarioUseCases usuarioUseCases) {
-//        this.usuarioUseCases = usuarioUseCases;
-//    }
+    private UsuarioUseCases usuarioUseCases;
+    private JwtService jwtService;
 
-//    @GetMapping("api/usuarios")
-//    public List<Usuario> listarUsuarios() {
-//        return this.usuarioUseCases.listar();
-//    }
+    public UsuarioRestController(JwtService jwtService) {
+        this.usuarioUseCases = new UsuarioUseCases(new UsuarioRepositoryMongo());
+        this.jwtService = jwtService;
+    }
 
     @GetMapping
     public String index(Authentication auth) {
-        // todo, en el ejemplo solo sale auth.getName(), pero si no pongo .getClass() no me deja, ¿funciona?
-        return "Email del token: " + auth.getClass().getName();
+        return "Email del token: " + auth.getName();
+    }
+
+    @PostMapping("/registro")
+    public String registro(@RequestBody Usuario usuario, Authentication auth){
+        Boolean correcto = this.usuarioUseCases.registrarUsuario(usuario);
+        if(correcto){
+            return "Usuario registrado correctamente.";
+        } else {
+            return "No se ha podido realizar el registro.";
+        }
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody Usuario usuario){
+        Usuario login = this.usuarioUseCases.loginUsuario(usuario);
+        if(login != null){
+            return jwtService.generateToken(login.getEmail());
+        } else {
+            return "Usuario y/o contraseña incorrectos.";
+        }
     }
 }

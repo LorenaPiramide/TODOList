@@ -37,18 +37,4 @@ public class UsuarioRepositoryMongo implements UsuarioRepository {
         }
         return new Usuario(document.getString("email"), document.getString("password"));
     }
-
-    // todo, creo que no hay que listar los usuarios
-//    @Override
-//    public List<Usuario> listarUsuarios() {
-//        MongoCollection<Document> collection = MongoDBConnector.getDataBase().getCollection(collectionName);
-//        List<Usuario> usuarios = new ArrayList<>();
-//        FindIterable<Document> iterable = collection.find();
-//
-//        for (Document document : iterable) {
-//            Usuario usuario = new Usuario(document.getString("email"), document.getString("password"));
-//            usuarios.add(usuario);
-//        }
-//        return usuarios;
-//    }
 }
