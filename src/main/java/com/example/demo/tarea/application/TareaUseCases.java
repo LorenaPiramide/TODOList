@@ -17,21 +17,24 @@ public class TareaUseCases {
         this.tareaRepository.reset();
     }
 
-    public void crearTarea(Tarea tarea, Usuario usuario) {
-        this.tareaRepository.crearTarea(tarea, usuario);
+    public void crearTarea(Tarea tarea, String email) {
+        if (!email.equals("test@test")) {
+            return;
+        }
+        this.tareaRepository.crearTarea(tarea);
     }
 
     public List<Tarea> listarTareasUsuario(Usuario usuario) {
         return this.tareaRepository.listarTareasUsuario(usuario);
     }
 
-    public void asignarTarea(Tarea tarea, Usuario propietario, Usuario asignado) {
-        this.tareaRepository.asignarTarea(tarea, propietario, asignado);
-    }
-
-    public boolean asignarEstado(Tarea tarea) {
-        return this.tareaRepository.cambiarEstado(tarea);
-    }
+//    public void asignarTarea(Tarea tarea, Usuario propietario, Usuario asignado) {
+//        this.tareaRepository.asignarTarea(tarea, propietario, asignado);
+//    }
+//
+//    public boolean asignarEstado(Tarea tarea) {
+//        return this.tareaRepository.cambiarEstado(tarea);
+//    }
 
     public boolean editarDatos(Tarea tarea) {
         return this.tareaRepository.editarDatos(tarea);

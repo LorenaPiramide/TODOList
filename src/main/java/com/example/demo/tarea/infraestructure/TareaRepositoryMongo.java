@@ -25,17 +25,17 @@ public class TareaRepositoryMongo implements TareaRepository {
     }
 
     @Override
-    public Tarea crearTarea(Tarea tarea, Usuario usuario) {
+    public Tarea crearTarea(Tarea tarea) {
         MongoCollection<Document> collection = MongoDBConnector.getDataBase().getCollection(collectionName);
 
         Document document = new Document()
-                .append("texto", tarea.getTexto())
-                .append("prioridad", tarea.getPrioridad().name())
-                .append("fechaCreacion", tarea.getFechaCreacion())
-                .append("fechaFinalizacion", tarea.getFechaFinalizacion())
-                .append("estaCompletada", tarea.isEstaCompletada())
-                .append("propietario", usuario.getEmail())
-                .append("usuariosAsignados", new ArrayList<String>());
+                .append("texto", tarea.getTexto());
+//                .append("email", tarea.);
+//                .append("fechaCreacion", tarea.getFechaCreacion())
+//                .append("fechaFinalizacion", tarea.getFechaFinalizacion())
+//                .append("estaCompletada", tarea.isEstaCompletada())
+//                .append("propietario", usuario.getEmail())
+//                .append("usuariosAsignados", new ArrayList<String>());
 
         InsertOneResult result = collection.insertOne(document);
 
@@ -59,12 +59,12 @@ public class TareaRepositoryMongo implements TareaRepository {
 
                 Tarea tarea = new Tarea(
                         doc.getObjectId("_id").toString(),
-                        doc.getString("texto"),
-                        Prioridad.valueOf(doc.getString("prioridad")),
-                        doc.getDate("fechaCreacion"),
-                        doc.getDate("fechaFinalizacion"),
-                        doc.getBoolean("estaCompletada"),
-                        new Usuario(propietarioEmail, "")
+                        doc.getString("texto")
+//                        Prioridad.valueOf(doc.getString("prioridad")),
+//                        doc.getDate("fechaCreacion"),
+//                        doc.getDate("fechaFinalizacion"),
+//                        doc.getBoolean("estaCompletada"),
+//                        new Usuario(propietarioEmail, "")
                 );
 
                 List<Usuario> usuariosAsignados = new ArrayList<>();
@@ -73,7 +73,7 @@ public class TareaRepositoryMongo implements TareaRepository {
                         usuariosAsignados.add(new Usuario(email, ""));
                     }
                 }
-                tarea.setUsuariosAsignados(usuariosAsignados);
+//                tarea.setUsuariosAsignados(usuariosAsignados);
 
                 tareas.add(tarea);
             }
@@ -82,45 +82,45 @@ public class TareaRepositoryMongo implements TareaRepository {
         return tareas;
     }
 
-    @Override
-    public void asignarTarea(Tarea tarea, Usuario propietario, Usuario asignado) {
-        MongoCollection<Document> collection = MongoDBConnector.getDataBase().getCollection(collectionName);
+//    @Override
+//    public void asignarTarea(Tarea tarea, Usuario propietario, Usuario asignado) {
+//        MongoCollection<Document> collection = MongoDBConnector.getDataBase().getCollection(collectionName);
+//
+//        Document doc = collection.find(new Document("_id", new ObjectId(tarea.getId()))).first();
+//        if (doc == null) return;
+//
+//        List<String> usuarios = (List<String>) doc.get("usuariosAsignados");
+//        if (usuarios == null) usuarios = new ArrayList<>();
+//
+//        if (!usuarios.contains(asignado.getEmail())) {
+//            usuarios.add(asignado.getEmail());
+//            collection.updateOne(
+//                    new Document("_id", new ObjectId(tarea.getId())),
+//                    new Document("$set", new Document("usuariosAsignados", usuarios))
+//            );
+//        }
+//    }
 
-        Document doc = collection.find(new Document("_id", new ObjectId(tarea.getId()))).first();
-        if (doc == null) return;
-
-        List<String> usuarios = (List<String>) doc.get("usuariosAsignados");
-        if (usuarios == null) usuarios = new ArrayList<>();
-
-        if (!usuarios.contains(asignado.getEmail())) {
-            usuarios.add(asignado.getEmail());
-            collection.updateOne(
-                    new Document("_id", new ObjectId(tarea.getId())),
-                    new Document("$set", new Document("usuariosAsignados", usuarios))
-            );
-        }
-    }
-
-    @Override
-    public boolean cambiarEstado(Tarea tarea) {
-        MongoCollection<Document> collection = MongoDBConnector.getDataBase().getCollection(collectionName);
-
-        UpdateResult result = collection.updateOne(
-                new Document("_id", new ObjectId(tarea.getId())),
-                new Document("$set", new Document("estaCompletada", tarea.isEstaCompletada()))
-        );
-
-        return result.getModifiedCount() > 0;
-    }
+//    @Override
+//    public boolean cambiarEstado(Tarea tarea) {
+//        MongoCollection<Document> collection = MongoDBConnector.getDataBase().getCollection(collectionName);
+//
+//        UpdateResult result = collection.updateOne(
+//                new Document("_id", new ObjectId(tarea.getId())),
+//                new Document("$set", new Document("estaCompletada", tarea.isEstaCompletada()))
+//        );
+//
+//        return result.getModifiedCount() > 0;
+//    }
 
     @Override
     public boolean editarDatos(Tarea tarea) {
         MongoCollection<Document> collection = MongoDBConnector.getDataBase().getCollection(collectionName);
 
         Document nuevosDatos = new Document()
-                .append("texto", tarea.getTexto())
-                .append("prioridad", tarea.getPrioridad().name())
-                .append("fechaFinalizacion", tarea.getFechaFinalizacion());
+                .append("texto", tarea.getTexto());
+//                .append("prioridad", tarea.getPrioridad().name())
+//                .append("fechaFinalizacion", tarea.getFechaFinalizacion());
 
         UpdateResult result = collection.updateOne(
                 new Document("_id", new ObjectId(tarea.getId())),

@@ -49,7 +49,6 @@ public class UsuarioUseCasesTest {
         assertEquals("nuevo@test", login.getEmail(), "El email del usuario debe coincidir");
     }
 
-
     @AfterEach
     void reset() {
         this.usuarioUseCases.reset();

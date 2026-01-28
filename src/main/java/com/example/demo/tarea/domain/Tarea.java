@@ -11,27 +11,27 @@ import java.util.List;
 public class Tarea {
     private String id; // los ids en Mongo son Strings, no ints
     private String texto;
-    private Prioridad prioridad;
-    private Date fechaCreacion;
-    private Date fechaFinalizacion;
-    private boolean estaCompletada;
-    private Usuario propietario;
-    private List<Usuario> usuariosAsignados;
+//    private Prioridad prioridad;
+//    private Date fechaCreacion;
+//    private Date fechaFinalizacion;
+//    private boolean estaCompletada;
+////    private Usuario propietario;
+//    private List<Usuario> usuariosAsignados;
 
-    public Tarea(String id, String texto, Prioridad prioridad, Date fechaCreacion, Date fechaFinalizacion, boolean estaCompletada, Usuario propietario) {
+    public Tarea(String id, String texto) {
         this.id = id;
         this.texto = texto;
-        this.prioridad = prioridad;
-        this.fechaCreacion = fechaCreacion;
-        this.fechaFinalizacion = fechaFinalizacion;
-        this.estaCompletada = estaCompletada;
-        this.propietario = propietario;
-        this.usuariosAsignados = new ArrayList<>();
+//        this.prioridad = prioridad;
+//        this.fechaCreacion = fechaCreacion;
+//        this.fechaFinalizacion = fechaFinalizacion;
+//        this.estaCompletada = estaCompletada;
+//        this.propietario = propietario;
+//        this.usuariosAsignados = new ArrayList<>();
     }
 
-    public Tarea() {
-        this.usuariosAsignados = new ArrayList<>();
-    }
+//    public Tarea() {
+//        this.usuariosAsignados = new ArrayList<>();
+//    }
 
     public String getId() {
         return id;
@@ -49,31 +49,31 @@ public class Tarea {
         this.texto = texto;
     }
 
-    public Prioridad getPrioridad() {
-        return prioridad;
-    }
-
-    public void setPrioridad(Prioridad prioridad) {
-        this.prioridad = prioridad;
-    }
-
-    public Date getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public Date getFechaFinalizacion() {
-        return fechaFinalizacion;
-    }
-
-    public boolean isEstaCompletada() {
-        return estaCompletada;
-    }
-
-    public void setEstaCompletada(boolean estaCompletada) {
-        this.estaCompletada = estaCompletada;
-    }
-
-    public void setUsuariosAsignados(List<Usuario> usuariosAsignados) {
-        this.usuariosAsignados = usuariosAsignados;
-    }
+//    public Prioridad getPrioridad() {
+//        return prioridad;
+//    }
+//
+//    public void setPrioridad(Prioridad prioridad) {
+//        this.prioridad = prioridad;
+//    }
+//
+//    public Date getFechaCreacion() {
+//        return fechaCreacion;
+//    }
+//
+//    public Date getFechaFinalizacion() {
+//        return fechaFinalizacion;
+//    }
+//
+//    public boolean isEstaCompletada() {
+//        return estaCompletada;
+//    }
+//
+//    public void setEstaCompletada(boolean estaCompletada) {
+//        this.estaCompletada = estaCompletada;
+//    }
+//
+//    public void setUsuariosAsignados(List<Usuario> usuariosAsignados) {
+//        this.usuariosAsignados = usuariosAsignados;
+//    }
 }
